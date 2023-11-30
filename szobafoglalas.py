@@ -70,4 +70,35 @@ szalloda.foglalas.foglalas(date(2023, 12, 11), KetagyasSzoba)
 szalloda.foglalas.foglalas(date(2023, 12, 12), EgyagyasSzoba)
 szalloda.foglalas.foglalas(date(2023, 12, 13), EgyagyasSzoba)
 
-szalloda.foglalas.listazas()
+print(f"Üdv a {szalloda.nev} szállodában!")
+valasztas = 0
+
+while valasztas != 4:
+    valasztas = int(input(f"Kérlek válassz műveletet: \n 1: Foglalás 2: Lemondás 3: Listázás 4: Kilépés :"))
+    if valasztas == 1:
+        datum = input("Dátum (év.hó.nap): ")
+        datum = datum.split(".")
+        szobatipusszam = int(input("Hány ágyas szoba legyen (1/2)? :"))
+        if szobatipusszam == 1:
+            ar = szalloda.foglalas.foglalas(date(int(datum[0]), int(datum[1]), int(datum[2])), EgyagyasSzoba)
+            if ar is None:
+                print("Sikertelen foglalás")
+            else:
+                print(f"Foglalás összege: {ar}")
+        elif szobatipusszam == 2:
+            ar = szalloda.foglalas.foglalas(date(int(datum[0]), int(datum[1]), int(datum[2])), KetagyasSzoba)
+            if ar is None:
+                print("Sikertelen foglalás")
+            else:
+                print(f"Foglalás összege: {ar}")
+    elif valasztas == 2:
+        datum = input("Dátum (év.hó.nap): ")
+        datum = datum.split(".")
+        szobaszam = int(input("Szobaszám: "))
+        siker = szalloda.foglalas.lemondas(date(int(datum[0]), int(datum[1]), int(datum[2])), szobaszam)
+        if siker:
+            print("Sikeres szobalemondás")
+        else:
+            print("Sikertelen szobalemondás")
+    elif valasztas == 3:
+        szalloda.foglalas.listazas()
